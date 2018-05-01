@@ -2,53 +2,32 @@
 """
 PyRename 
 
-Version: 0.5
+Version: 0.8
 Author: Pablo M. Pareja
 License: GPL
 """
 import os
+# import re
+
+from functions import *
 
 ###############################################
-# Add a prefix to files
+# Clear prompt of CLI
 ###############################################
-def prefixfiles():
-	print("Name of Prefix:")
-	prefix = input()
-
-	for filename in os.listdir("."):
-	    os.rename(filename, prefix + filename)
-
-###############################################
-# Rename complete names and add a counter
-###############################################
-def filescounter(param):
-	print("Name to rename:")
-	renamefile = input()
-
-	listfile = []
-	listfile = os.listdir(".")
-
-	if param == 21:
-		for filename in listfile:
-			fileindex = listfile.index(filename)
-			os.rename(filename, renamefile + str(fileindex+1) + filename[len(filename)-4:])
-	else:
-		matchtext = input("Match word: ")
-		for filename in listfile:
-			fileindex = listfile.index(filename)
-			if filename.startswith(matchtext):
-				os.rename(filename, renamefile + str(fileindex+1) + filename[len(filename)-4:])
-
+clear = lambda: os.system('cls')
 
 ###############################################
 # Menu
 ###############################################
 def print_menu():
+	clear()
+	print("")
 	print(30 * "-" , "MENU" , 30 * "-")
 	print("1. Add prefix to files")
 	print("2. Rename files with a counter")
 	print("3. Rename files with a counter and match the word...")
-	print("4. Exit")
+	print("4. Replace/Remove Word")
+	print("5. Exit")
 	print(67 * "-")
 
 
@@ -60,7 +39,7 @@ os.chdir(r'%s' % directory)
 loop = True
 while loop:
 	print_menu()
-	choice = int(input("Enter your choice [1-4]: "))
+	choice = int(input("Enter your choice [1-5]: "))
 
 	if choice==1:
 		prefixfiles()
@@ -69,6 +48,8 @@ while loop:
 	elif choice==3:
 		filescounter(22)
 	elif choice==4:
+		rrename()
+	elif choice==5:
 		loop=False
 	else:
 		input("Wrong option selection. Enter any key to try again..")
